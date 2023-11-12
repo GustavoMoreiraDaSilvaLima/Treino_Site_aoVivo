@@ -35,19 +35,20 @@
 <body>
     <h1>Validação de Login</h1>
     <div class="container">
-        <form action="/Registrar" method="GET" novalidate>
+        <form action='/Registrar' method='GET'>
             <label for="login">Login:</label>
-            <input style="margin-left: 9cm" class="form-control col-md-5" type="text" id="login" name="login" placeholder="Usuário" required>
+            <input style="margin-left: 9cm" class="form-control col-md-5" type="text" id="login" name="login" placeholder="Usuário">
             <br>
             <label for="password">Senha:</label>
             <input style="margin-left: 9cm" class="form-control col-md-5" type="password" id="password" 
-            name="password" placeholder="Senha" required>
+            name="password" placeholder="Senha">
             <br>
             <label for="confirmPassword">Confirmar Senha:</label>
             <input style="margin-left: 9cm" class="form-control col-md-5" type="password" id="confirmPassword"
-            name="confirmPassword"    placeholder="Confirmar Senha" required>
+            name="confirmPassword"    placeholder="Confirmar Senha">
             <br>
             <input type="submit" id="createAccount" class="btn btn-success" value="Criar Conta">
+            <!--<button id="createAccount" class="btn btn-success">Criar Conta</button>-->
         </form>
     </div>
     <p id="resultado"></p>
@@ -98,13 +99,12 @@
                     resultado.textContent = '';
                 }
             });
-
-            createAccountButton.addEventListener('click', function (event) {
+            /*createAccountButton.addEventListener('click', function (event) {
                 event.preventDefault(); // Impede o comportamento padrão de envio do formulário
 
                 // Resto do código de validação aqui
-            });
-
+            });*/
+            //o codigo acima funciona com o button mas ele nao leva a reposta.end(), ele mantem na mesma tela. SEM ELE não é possivel validar as senhas do usuario. não consegui resolver
 
             confirmPasswordInput.addEventListener('keydown', function () {
                 if (resultado.textContent) {
