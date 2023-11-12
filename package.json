@@ -1,0 +1,30 @@
+{
+  "name": "treino_site_aovivo",
+  "version": "1.0.0",
+  "description": "Formularios registrados e mostrados ao usuário",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GustavoMoreiraDaSilvaLima/Treino_Site_aoVivo.git"
+  },
+  "keywords": [
+    "Formulario",
+    "forms",
+    "usuario",
+    "registro"
+  ],
+  "author": "Gustavo Moreira Da Silva Lima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GustavoMoreiraDaSilvaLima/Treino_Site_aoVivo/issues"
+  },
+  "homepage": "https://github.com/GustavoMoreiraDaSilvaLima/Treino_Site_aoVivo#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

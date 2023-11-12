@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 200px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+        p {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Validação de Login</h1>
+    <div class="container">
+        <form action="/Registrar" method="GET" novalidate>
+            <label for="login">Login:</label>
+            <input style="margin-left: 9cm" class="form-control col-md-5" type="text" id="login" name="login" placeholder="Usuário" required>
+            <br>
+            <label for="password">Senha:</label>
+            <input style="margin-left: 9cm" class="form-control col-md-5" type="password" id="password" 
+            name="password" placeholder="Senha" required>
+            <br>
+            <label for="confirmPassword">Confirmar Senha:</label>
+            <input style="margin-left: 9cm" class="form-control col-md-5" type="password" id="confirmPassword"
+            name="confirmPassword"    placeholder="Confirmar Senha" required>
+            <br>
+            <input type="submit" id="createAccount" class="btn btn-success" value="Criar Conta">
+        </form>
+    </div>
+    <p id="resultado"></p>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var loginInput = document.getElementById('login');
+            var passwordInput = document.getElementById('password');
+            var confirmPasswordInput = document.getElementById('confirmPassword');
+            var resultado = document.getElementById('resultado');
+            var createAccountButton = document.getElementById('createAccount');
+
+            createAccountButton.addEventListener('click', function () {
+                var loginValue = loginInput.value;
+                var passwordValue = passwordInput.value;
+                var confirmPasswordValue = confirmPasswordInput.value;
+
+                if (loginValue.length < 5) {
+                    resultado.style.color = 'red';
+                    resultado.textContent = 'Login precisa conter no mínimo 5 caracteres';
+                } else if (passwordValue.length < 1) {
+                    resultado.style.color = 'red';
+                    resultado.textContent = 'Senha não pode estar em branco';
+                } else if (passwordValue !== confirmPasswordValue) {
+                    resultado.style.color = 'red';
+                    resultado.textContent = 'Senhas não são iguais';
+                } else {
+                    resultado.style.color = 'black';
+                    resultado.textContent = 'Conta criada com sucesso';
+                }
+            });
+
+            loginInput.addEventListener('blur', function () {
+                if (loginInput.value.length < 5) {
+                    resultado.style.color = 'red';
+                    resultado.textContent = 'Login precisa conter no mínimo 5 caracteres';
+                }
+            });
+
+            loginInput.addEventListener('keydown', function () {
+                if (resultado.textContent) {
+                    resultado.textContent = '';
+                }
+            });
+
+            passwordInput.addEventListener('keydown', function () {
+                if (resultado.textContent) {
+                    resultado.textContent = '';
+                }
+            });
+
+            createAccountButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Impede o comportamento padrão de envio do formulário
+
+                // Resto do código de validação aqui
+            });
+
+
+            confirmPasswordInput.addEventListener('keydown', function () {
+                if (resultado.textContent) {
+                    resultado.textContent = '';
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
