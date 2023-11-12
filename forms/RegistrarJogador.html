@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Jogador</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        .strong{
+            font-size: 36px;
+            font-family: Arial, sans-serif; 
+            font-weight: bold; 
+            padding: 10px; 
+            color: greenyellow;
+            text-shadow: 2px 2px 4px black;
+        }
+        .imagemFull{
+            background-image: url(TodosEscudos.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 900px;
+            height: 900px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container border border-success imagemFull">
+        <form style="padding-top: 50px;" action="/RegistrarJogador" method="GET">
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label class="strong" for="time">Clube Atual:</label>
+                    <input type="text" class="form-control" id="time" name="time" placeholder="Clube" required>
+                </div>
+                <div class="form-group col-md-5">
+                    <label class="strong" for="exclube">Ex-Clube:</label>
+                    <input type="text" class="form-control" id="exclube" name="exclube" placeholder="Ex-Clube" required>
+                </div>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label class="strong" for="jogador">Jogador:</label>
+                <input type="text" class="form-control col-8" id="jogador" name="jogador" placeholder="jogador" required>
+                <div class="form-group col-md-5">
+                    <label class="strong" for="preco">Preco:</label>
+                    <input type="text" class="form-control" id="preco" onkeypress="mMoeda(this)" name="preco" placeholder="preco" required>
+                </div>
+                <div class="form-group col-md-5">
+                    <label class="strong" for="idade">Idade:</label>
+                    <input type="text" class="form-control" id="idade" onkeypress="mascara('##',this,event)" name="idade" placeholder="idade" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Fazer Cadastro</button>
+    </div>
+    </form>
+    </div>
+</body>
+<script>
+function mMoeda () {
+  var v = (event.target.value).substring(3); 
+  var v = event.target.value;
+           
+
+  v = v.replace(/\D/g, "");
+  v = v.replace(/^0+/g, "");
+  v = v.replace(/(\d{1})(\d{13})$/, "$1.$2");
+  v = v.replace(/(\d{1})(\d{10})$/, "$1.$2");
+  v = v.replace(/(\d{1})(\d{7})$/, "$1.$2");
+  v = v.replace(/(\d{1})(\d{4})$/, "$1.$2");
+  v = v.replace(/(\d{1})(\d{1,1})$/, "$1,$2");
+
+  event.target.value = "R$ " + v;
+  event.target.value = v;
+}
+/*
+fonte: https://github.com/FlavioALeal/MascaraJS
+
+Parametros da função mascara
+A função máscara tem 3 parametros.
+
+1º - o Modelo da máscara utilizado no input, como explicado acima, informe sempre a máscara entre aspas simples ou aspas duplas, parametro obrigatório
+2º - não mude, sempre deve ser this, parametro obrigatório
+3º - não mude, sempre deve ser event, parametro obrigatório
+*/
+function mascara(m,t,e){
+  var cursor = t.selectionStart;
+  var texto = t.value;
+  texto = texto.replace(/\D/g,'');
+  var l = texto.length;
+  var lm = m.length;
+  if(window.event) {                  
+     id = e.keyCode;
+  } else if(e.which){                 
+     id = e.which;
+  }
+  cursorfixo=false;
+  if(cursor < l)cursorfixo=true;
+  var livre = false;
+  if(id == 16 || id == 19 || (id >= 33 && id <= 40))livre = true;
+  ii=0;
+  mm=0;
+  if(!livre){
+     if(id!=8){
+        t.value="";
+        j=0;
+        for(i=0;i<lm;i++){
+           if(m.substr(i,1)=="#"){
+              t.value+=texto.substr(j,1);
+              j++;
+           }else if(m.substr(i,1)!="#"){
+                    t.value+=m.substr(i,1);
+                  }
+                  if(id!=8 && !cursorfixo)cursor++;
+                  if((j)==l+1)break;
+                      
+        } 	
+     }
+  }
+  if(cursorfixo && !livre)cursor--;
+    t.setSelectionRange(cursor, cursor);
+}
+</script>
+<!--
+            time_atual: requisicao.query.time,
+        exclube: requisicao.query.exclube,
+        nome: requisicao.query.jogador,
+        preco: requisicao.query.preco,
+        idade: requisicao.query.idade
+-->
+
+</html>

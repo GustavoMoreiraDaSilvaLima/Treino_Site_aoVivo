@@ -5,6 +5,7 @@ const porta = 3000;
 const host = '0.0.0.0';
 
 var listaUsuarios = [];
+var ListaJogadores = [];
 
 function funcionajogo(requisicao,resposta){
     resposta.end(`<!DOCTYPE html>
@@ -162,7 +163,7 @@ function processaCadastroUsuario(requisicao, resposta) {
     conteudoResposta += `
     <!DOCTYPE html>
     <head>
-        <title>Menu do Sistema</title>
+        <title>Cadastrados</title>
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -222,6 +223,7 @@ app.get('/', (requisicao, resposta) => {
         <ul>
             <li><a href="Registrar.html">Cadastar Usuário</a></li>
             <li><a href="jogo">Jogo da Velha</a></li>
+            <li><a href="RegistrarJogador.html">Cadastrar Jogador</a></li>
         </ul>
     </body>
     </html>`
@@ -229,8 +231,75 @@ app.get('/', (requisicao, resposta) => {
     );
 
 })
+function processaJogador(requisicao, resposta){
+    const jogador = {
+        time_atual: requisicao.query.time,
+        exclube: requisicao.query.exclube,
+        nome: requisicao.query.jogador,
+        preco: requisicao.query.preco,
+        idade: requisicao.query.idade
+    }
+    ListaJogadores.push(jogador);
+
+    let conteudoResposta ='';
+
+    conteudoResposta += `
+    <!DOCTYPE html>
+    <head>
+        <title>Central de Transferência</title>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+    <body>
+    <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Idade</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Time Atual</th>
+      <th scope="col">Preco</th>
+      <th scope="col">Ex-Clube</th>
+    </tr>
+  </thead>
+  <tbody>`;
+
+for(const jogador of ListaJogadores)
+{
+    conteudoResposta+=`
+    <tr>
+        <th scope="row">${jogador.idade}</th>
+        <th>${jogador.nome}</th>
+        <th>${jogador.time_atual}</th>
+        <th>${jogador.preco}</th>
+        <th>${jogador.exclube}</th>
+    </tr>
+    `
+}
+conteudoResposta+=`    
+        </tr>
+    </tbody>
+    </table>
+    <a class="btn btn-primary" href="/" role="button">Voltar ao menu</a>
+    <a class="btn btn-primary" href="/RegistrarJogador.html" role="button">Cadastrar outro Jogador</a>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+                    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+                    crossorigin="anonymous">
+                </script>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                    crossorigin="anonymous">
+                </script>
+            </html>
+`
+resposta.end(conteudoResposta);
+
+}
 
 app.get('/Registrar', processaCadastroUsuario);
+app.get('/RegistrarJogador',processaJogador);
+app.get('/')
 
 app.get('/jogo',funcionajogo);
 
