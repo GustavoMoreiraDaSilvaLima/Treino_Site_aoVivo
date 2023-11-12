@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 
 const porta = 3000;
 const host = '0.0.0.0';
@@ -206,7 +207,7 @@ function processaCadastroUsuario(requisicao, resposta) {
 
 const app = express();
 
-app.use(express.static('./forms'));
+app.use(express.static(path.join(process.cwd(),'forms')));
 
 
 app.get('/', (requisicao, resposta) => {
